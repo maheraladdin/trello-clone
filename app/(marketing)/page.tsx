@@ -23,7 +23,7 @@ const textFont = Poppins({
 
 export default function MarketingPage() {
   return (
-    <section className={"flex flex-col items-center justify-center"}>
+    <div className={"flex flex-col items-center justify-center"}>
       <div className={cn(
           "flex flex-col items-center justify-center",
           headerFont.className,
@@ -53,6 +53,6 @@ export default function MarketingPage() {
           Get Taskify for free
         </Link>
       </Button>
-    </section>
+    </div>
   );
 }
