@@ -21,7 +21,7 @@ export default function FormPicker({id, errors}: FormPickerProps) {
     const {pending} = useFormStatus();
     const [images, setImages] = useState<Array<Record<string, any>>>(defaultImages);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [selectedImagdId, setSelectedImageId] = useState<string | null>(null);
+    const [selectedImagedId, setSelectedImageId] = useState<string | null>(null);
 
     useEffect(() => {
         // IIFE to fetch images from Unsplash
@@ -78,7 +78,7 @@ export default function FormPicker({id, errors}: FormPickerProps) {
                             id={id}
                             name={id}
                             className={"hidden"}
-                            checked={selectedImagdId === image.id}
+                            checked={selectedImagedId === image.id}
                             disabled={pending}
                             value={`${image.id}|${image.urls.thumb}|${image.urls.full}|${image.alt_description}|${image.links.html}|${image.user.name}`}
                         />
@@ -90,7 +90,7 @@ export default function FormPicker({id, errors}: FormPickerProps) {
                             fill
                         />
                         {/* check the selected image */}
-                        {selectedImagdId === image.id && (
+                        {selectedImagedId === image.id && (
                             <div className={"absolute inset-0 bg-black/30 flex items-center justify-center rounded-sm"}>
                                 <CheckCircle className={"h-6 w-6 text-white"} />
                             </div>
