@@ -11,8 +11,16 @@ datasource db {
 // start trello-clone schema
 
 model Board {
-  id        String   @id @default(cuid())
-  title     String   @db.Text
+  id                  String @id @default(cuid())
+  orgId               String
+  title               String
+  imageId             String
+  imageThumbUrl       String @db.Text
+  imageFullUrl        String @db.Text
+  imageUserName       String @db.Text
+  imageLinkHtml       String @db.Text
+  imageAltDescription String @db.Text
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

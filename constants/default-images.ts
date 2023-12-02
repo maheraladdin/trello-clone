@@ -1,4 +1,4 @@
-export const defaultImages = [
+const defaultImages = [
   {
       "id": "HUiNRjXr-bQ",
       "slug": "selective-focus-photography-of-brown-leaves-HUiNRjXr-bQ",
@@ -892,3 +892,5 @@ export const defaultImages = [
       "downloads": 20538
   }
 ]
+
+export default defaultImages;

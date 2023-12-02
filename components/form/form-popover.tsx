@@ -1,5 +1,9 @@
 "use client";
 
+import {XIcon} from "lucide-react";
+import {ElementRef, useRef} from "react";
+
+
 import {
     Popover,
     PopoverTrigger,
@@ -11,8 +15,8 @@ import {createBoard} from "@/actions/create-board";
 import FormInput from "@/components/form/form-input";
 import FormButton from "@/components/form/form-button";
 import {Button} from "@/components/ui/button";
-import {XIcon} from "lucide-react";
 import FormPicker from "@/components/form/form-picker";
+import { useRouter } from "next/navigation";
 
 type FormPopoverProps = {
     children: React.ReactNode;
@@ -27,17 +31,27 @@ export default function FormPopover({
     align,
     sideOffset = 0,
 }: FormPopoverProps) {
+    const router = useRouter();
+    const closeRef = useRef<ElementRef<"button">>(null);
 
     const { execute, fieldErrors } = useAction(createBoard, {
         enableToast: true,
         toastErrorMessage: "Error creating board: ",
         toastSuccessMessage: "Board created!",
         toastLoadingMessage: "Creating board...",
+        onSuccess: (data) => {
+            closeRef.current?.click();
+            router.push(`/board/${data.id}`);
+        }
     });
 
     const onSubmit = async (formData: FormData) => {
+        // get the title and image from the form data
         const title = formData.get("title") as string;
-        await execute({ title });
+        const image = formData.get("image") as string;
+
+        // execute the createBoard action
+        await execute({ title, image });
     }
 
     return (
@@ -54,7 +68,7 @@ export default function FormPopover({
                 <div className="text-sm font-medium text-neutral-600 pb-4 text-center">
                     Create a new board
                 </div>
-                <PopoverClose asChild>
+                <PopoverClose ref={closeRef} asChild>
                     <Button
                         className={"h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600 hover:text-neutral-500 transition"}
                         variant={"ghost"}

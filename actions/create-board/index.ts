@@ -8,15 +8,41 @@ import createSafeAction from "@/lib/create-safe-action";
 import {CreateBoardSchema} from "@/actions/create-board/schema";
 
 const handler = async (data: CreateBoardInput): Promise<CreateBoardOutput> => {
-    const { userId } = auth();
+    const { userId, orgId } = auth();
 
-    if(!userId) {
+    if(!userId || !orgId) {
         return {
             error: "Not authenticated",
         }
     }
 
-    const {title} = data;
+    const {title, image} = data;
+
+    // order of the split is important
+    const [
+        imageId,
+        imageThumbUrl,
+        imageFullUrl,
+        imageAltDescription,
+        imageLinkHtml,
+        imageUserName
+    ] = image.split("|");
+
+    console.log({
+        imageId,
+        imageThumbUrl,
+        imageFullUrl,
+        imageAltDescription,
+        imageLinkHtml,
+        imageUserName
+    })
+
+
+    if(!imageId || !imageThumbUrl || !imageFullUrl || !imageAltDescription || !imageLinkHtml || !imageUserName) {
+        return {
+            error: "Missing Field failed to create board",
+        }
+    }
 
     let board;
 
@@ -24,6 +50,13 @@ const handler = async (data: CreateBoardInput): Promise<CreateBoardOutput> => {
         board = await db.board.create({
             data: {
                 title,
+                orgId,
+                imageId,
+                imageThumbUrl,
+                imageFullUrl,
+                imageAltDescription,
+                imageLinkHtml,
+                imageUserName,
             }
         });
     } catch (error: any) {
