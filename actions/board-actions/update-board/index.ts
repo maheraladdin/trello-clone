@@ -17,14 +17,14 @@ const handler = async (data: UpdateBoardInput): Promise<UpdateBoardOutput> => {
         }
     }
 
-    const {title} = data;
+    const {title, id} = data;
 
     let board;
 
     try {
         board = await db.board.update({
             where: {
-                id: data.id,
+                id,
                 orgId,          // Only allow updating boards that belong to the current user's org
             },
             data: {

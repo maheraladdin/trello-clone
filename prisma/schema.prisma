@@ -20,9 +20,38 @@ model Board {
   imageUserName       String @db.Text
   imageLinkHtml       String @db.Text
   imageAltDescription String @db.Text
+  List                List[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model List {
+  id      String @id @default(cuid())
+  boardId String
+  title   String
+  order   Int
+  board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Card      Card[]
+
+  @@index([boardId])
+}
+
+model Card {
+  id          String  @id @default(cuid())
+  listId      String
+  title       String
+  order       Int
+  description String? @db.Text
+  list        List    @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([listId])
 }
 
 // end trello-clone schema
