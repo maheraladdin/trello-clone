@@ -5,7 +5,6 @@ import {startCase} from "lodash";
 import {db} from "@/lib/db";
 import BoardNavbar from "./_components/board-navbar";
 
-
 type BoardIdLayoutProps = {
     children: React.ReactNode,
     params: { boardId: string }

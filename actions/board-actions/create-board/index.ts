@@ -5,7 +5,7 @@ import {auth} from "@clerk/nextjs";
 import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
 import createSafeAction from "@/lib/create-safe-action";
-import {CreateBoardSchema} from "@/actions/create-board/schema";
+import {CreateBoardSchema} from "@/actions/board-actions/create-board/schema";
 
 const handler = async (data: CreateBoardInput): Promise<CreateBoardOutput> => {
     const { userId, orgId } = auth();
@@ -27,15 +27,6 @@ const handler = async (data: CreateBoardInput): Promise<CreateBoardOutput> => {
         imageLinkHtml,
         imageUserName
     ] = image.split("|");
-
-    console.log({
-        imageId,
-        imageThumbUrl,
-        imageFullUrl,
-        imageAltDescription,
-        imageLinkHtml,
-        imageUserName
-    })
 
 
     if(!imageId || !imageThumbUrl || !imageFullUrl || !imageAltDescription || !imageLinkHtml || !imageUserName) {
@@ -61,7 +52,7 @@ const handler = async (data: CreateBoardInput): Promise<CreateBoardOutput> => {
         });
     } catch (error: any) {
         return {
-            error: "Failed to create board",
+            error: "Failed to create board: " + error.message,
         }
     }
 
