@@ -77,7 +77,7 @@ export default async function BoardList() {
 BoardList.Skeleton = function SkeletonBoardList() {
     return (
         <div className={"grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"}>
-            {Array(8).fill(0).map(_ => <Skeleton className={"aspect-video h-full w-full p-2"}/>)}
+            {Array(8).fill(0).map((_,index) => <Skeleton key={`skeleton-board-list-${index}`} className={"aspect-video h-full w-full p-2"}/>)}
         </div>
     )
 }
