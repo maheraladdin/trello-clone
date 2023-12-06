@@ -1,6 +1,7 @@
 import {auth} from "@clerk/nextjs";
 import {db} from "@/lib/db";
 import {redirect} from "next/navigation";
+import ListContainer from "@/app/(platform)/(dashboard)/board/[boardId]/_components/list-container";
 
 type BoardIdPageProps = {
     params: {
@@ -20,15 +21,23 @@ export default async function BoardIdPage({ params: { boardId } }: BoardIdPagePr
             }
         },
         include: {
-            Card: true,
+            Cards: {
+                orderBy: {
+                    order: "asc",
+                }
+            },
         },
+        orderBy: {
+            order: "asc",
+        }
     });
 
 
 
     return (
-        <>
-
-        </>
+        <div className={"p-4 h-full overflow-x-auto"}>
+            <ListContainer lists={lists} boardId={boardId} />
+        </div>
     )
-}
+
+};
