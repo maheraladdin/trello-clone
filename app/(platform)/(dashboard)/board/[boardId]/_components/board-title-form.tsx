@@ -6,7 +6,7 @@ import {useState, useRef, ElementRef} from "react";
 import {Button} from "@/components/ui/button";
 import FormInput from "@/components/form/form-input";
 import useAction from "@/hooks/use-action";
-import {updateBoard} from "@/actions/board-actions/update-board";
+import {updateBoard} from "@/actions/board-actions";
 
 type BoardTitleFormProps = {
     board: Board

@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button";
 import {Popover, PopoverClose, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Loader2, MoreHorizontalIcon, XIcon} from "lucide-react";
 import useAction from "@/hooks/use-action";
-import {deleteBoard} from "@/actions/board-actions/delete-board";
+import {deleteBoard} from "@/actions/board-actions";
 
 export default function BoardOptions({id}: {id: string}) {
 

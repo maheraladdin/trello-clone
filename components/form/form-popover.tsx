@@ -10,7 +10,7 @@ import {
     PopoverContent, PopoverClose,
 } from "@/components/ui/popover";
 import useAction from "@/hooks/use-action";
-import {createBoard} from "@/actions/board-actions/create-board";
+import {createBoard} from "@/actions/board-actions";
 
 import FormInput from "@/components/form/form-input";
 import FormButton from "@/components/form/form-button";

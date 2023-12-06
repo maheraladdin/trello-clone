@@ -1,6 +1,6 @@
 "use server";
 
-import {UpdateBoardInput, UpdateBoardOutput} from "./types";
+import {InputType, OutputType} from "./types";
 import {auth} from "@clerk/nextjs";
 import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
@@ -8,7 +8,7 @@ import createSafeAction from "@/lib/create-safe-action";
 import {UpdateBoardSchema} from "@/actions/board-actions/update-board/schema";
 
 
-const handler = async (data: UpdateBoardInput): Promise<UpdateBoardOutput> => {
+const handler = async (data: InputType): Promise<OutputType> => {
     const { userId, orgId } = auth();
 
     if(!userId || !orgId) {
@@ -44,4 +44,6 @@ const handler = async (data: UpdateBoardInput): Promise<UpdateBoardOutput> => {
     }
 }
 
-export const updateBoard = createSafeAction(UpdateBoardSchema, handler);
+const updateBoard = createSafeAction(UpdateBoardSchema, handler);
+
+export default updateBoard;

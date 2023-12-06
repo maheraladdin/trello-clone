@@ -1,6 +1,6 @@
 "use server";
 
-import {DeleteBoardInput, DeleteBoardOutput} from "./types";
+import {InputType, OutputType} from "./types";
 import {auth} from "@clerk/nextjs";
 import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
@@ -9,7 +9,7 @@ import {DeleteBoardSchema} from "@/actions/board-actions/delete-board/schema";
 import {redirect} from "next/navigation";
 
 
-const handler = async (data: DeleteBoardInput): Promise<DeleteBoardOutput> => {
+const handler = async (data: InputType): Promise<OutputType> => {
     const { userId, orgId } = auth();
 
     if(!userId || !orgId) {
@@ -37,4 +37,6 @@ const handler = async (data: DeleteBoardInput): Promise<DeleteBoardOutput> => {
 
 }
 
-export const deleteBoard = createSafeAction(DeleteBoardSchema, handler);
+const deleteBoard = createSafeAction(DeleteBoardSchema, handler);
+
+export default deleteBoard;

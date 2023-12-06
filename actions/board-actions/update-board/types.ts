@@ -5,5 +5,5 @@ import { ActionState } from "@/lib/create-safe-action";
 
 import { UpdateBoardSchema } from "./schema";
 
-export type UpdateBoardInput = z.infer<typeof UpdateBoardSchema>;
-export type UpdateBoardOutput = ActionState<UpdateBoardInput, Board>;
+export type InputType = z.infer<typeof UpdateBoardSchema>;
+export type OutputType = ActionState<InputType, Board>;

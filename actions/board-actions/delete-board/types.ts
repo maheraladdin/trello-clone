@@ -5,5 +5,5 @@ import { ActionState } from "@/lib/create-safe-action";
 
 import { DeleteBoardSchema } from "./schema";
 
-export type DeleteBoardInput = z.infer<typeof DeleteBoardSchema>;
-export type DeleteBoardOutput = ActionState<DeleteBoardInput, Board>;
+export type InputType = z.infer<typeof DeleteBoardSchema>;
+export type OutputType = ActionState<InputType, Board>;
