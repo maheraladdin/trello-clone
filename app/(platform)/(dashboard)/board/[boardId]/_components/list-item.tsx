@@ -29,6 +29,7 @@ export default function ListItem({ list, index }: { list: ListWithCards, index: 
                 />
                 <CardForm
                     listId={list.id}
+                    boardId={list.boardId}
                     ref={textareaRef}
                     isEditing={isEditing}
                     enableEditing={enableEditing}
