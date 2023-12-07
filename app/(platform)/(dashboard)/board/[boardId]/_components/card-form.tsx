@@ -1,3 +1,4 @@
+"use client";
 import {ElementRef, forwardRef, KeyboardEventHandler, useRef} from "react";
 import {Button} from "@/components/ui/button";
 import {Plus, XIcon} from "lucide-react";
@@ -25,7 +26,7 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({listId, isEdit
         toastLoadingMessage: "Creating card...",
         toastSuccessMessage: "Card created successfully!",
         toastErrorMessage: "Failed to create card: ",
-    })
+    });
 
     const onKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") disableEditing();
@@ -35,6 +36,7 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({listId, isEdit
         const title = formData.get("title") as string;
         const listId = formData.get("listId") as string;
         const boardId = formData.get("boardId") as string;
+        console.log({title, listId, boardId})
 
         await execute({title, listId, boardId});
     }

@@ -24,7 +24,7 @@ const handler = async (data: InputType): Promise<OutputType> => {
     try {
         const list = await db.list.findUnique({
             where: {
-                id: boardId,
+                id: listId,
                 board: {
                     orgId,
                 },
@@ -59,7 +59,7 @@ const handler = async (data: InputType): Promise<OutputType> => {
 
     } catch (error: any) {
         return {
-            error: "Failed to create board: " + error.message,
+            error: "Failed to create card: " + error.message,
         }
     }
 
