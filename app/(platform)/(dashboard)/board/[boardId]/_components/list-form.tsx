@@ -13,10 +13,7 @@ import useAction from "@/hooks/use-action";
 import {createList} from "@/actions/list-actions";
 
 export default function ListForm() {
-
     const params = useParams();
-    const boardId = params.boardId as string;
-
     const router = useRouter();
 
     const formRef = useRef<ElementRef<"form">>(null);
@@ -55,6 +52,7 @@ export default function ListForm() {
 
     const onSubmit = async (formData: FormData) => {
         const title = formData.get("title") as string;
+        const boardId = formData.get("boardId") as string;
         await execute({title, boardId});
     }
 
@@ -71,6 +69,10 @@ export default function ListForm() {
                     id={"title"}
                     placeholder={"Enter list title..."}
                     className={"text-sm px-2 py-1 h-7 font-medium border-transparent hover:border-input focus:border-input transition"}
+                />
+                <input
+                    type="hidden"
+                    value={params.boardId}
                 />
                 <div className={"flex items-center justify-between"}>
                     <FormButton
