@@ -5,12 +5,14 @@ import {useEventListener} from "usehooks-ts";
 import FormInput from "@/components/form/form-input";
 import useAction from "@/hooks/use-action";
 import {updateList} from "@/actions/list-actions";
+import ListOptions from "@/app/(platform)/(dashboard)/board/[boardId]/_components/list-options";
 
 type ListHeaderProps = {
     list: List,
+    onAddCard: () => void,
 }
 
-export default function ListHeader({list}: ListHeaderProps) {
+export default function ListHeader({list, onAddCard}: ListHeaderProps) {
 
     const [title, setTitle] = useState(list.title);
     const [isEditing, setIsEditing] = useState(false);
@@ -90,7 +92,7 @@ export default function ListHeader({list}: ListHeaderProps) {
                     {title}
                 </button>
             )}
-
+            <ListOptions list={list} onAddCard={() => {}} />
         </div>
     )
 }

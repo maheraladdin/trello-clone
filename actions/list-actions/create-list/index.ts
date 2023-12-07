@@ -66,6 +66,6 @@ const handler = async (data: InputType): Promise<OutputType> => {
     }
 }
 
-const createBoard = createSafeAction(CreateListSchema, handler);
+const createList = createSafeAction(CreateListSchema, handler);
 
-export default createBoard;
+export default createList;

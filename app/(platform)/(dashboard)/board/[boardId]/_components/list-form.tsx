@@ -53,6 +53,7 @@ export default function ListForm() {
     const onSubmit = async (formData: FormData) => {
         const title = formData.get("title") as string;
         const boardId = formData.get("boardId") as string;
+
         await execute({title, boardId});
     }
 
@@ -73,6 +74,7 @@ export default function ListForm() {
                 <input
                     type="hidden"
                     value={params.boardId}
+                    name={"boardId"}
                 />
                 <div className={"flex items-center justify-between"}>
                     <FormButton
