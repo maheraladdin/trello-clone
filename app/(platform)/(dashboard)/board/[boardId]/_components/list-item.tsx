@@ -1,10 +1,13 @@
 "use client";
 
+import {ElementRef, useRef, useState} from "react";
+
 import {ListWithCards} from "@/types";
 import ListWrapper from "@/app/(platform)/(dashboard)/board/[boardId]/_components/list-wrapper";
 import ListHeader from "@/app/(platform)/(dashboard)/board/[boardId]/_components/list-header";
-import {ElementRef, useRef, useState} from "react";
 import CardForm from "@/app/(platform)/(dashboard)/board/[boardId]/_components/card-form";
+import {cn} from "@/lib/utils";
+import CardItem from "@/app/(platform)/(dashboard)/board/[boardId]/_components/card-item";
 
 export default function ListItem({ list, index }: { list: ListWithCards, index: number }) {
     const textareaRef = useRef<ElementRef<"textarea">>(null);
@@ -27,6 +30,20 @@ export default function ListItem({ list, index }: { list: ListWithCards, index: 
                     onAddCard={enableEditing}
                     list={list}
                 />
+                <ol
+                    className={cn(
+                        "mx-1 px-1 py-0.5 flex flex-col gap-y-2",
+                        list.Cards.length === 0 && "mt-2",
+                        )}
+                >
+                    {list.Cards.map((card, index) => (
+                        <CardItem
+                            key={card.id}
+                            card={card}
+                            index={index}
+                        />
+                    ))}
+                </ol>
                 <CardForm
                     listId={list.id}
                     boardId={list.boardId}

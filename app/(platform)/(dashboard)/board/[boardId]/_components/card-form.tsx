@@ -7,7 +7,6 @@ import FormButton from "@/components/form/form-button";
 import useAction from "@/hooks/use-action";
 import {createCard} from "@/actions/card-actions";
 import {useEventListener, useOnClickOutside} from "usehooks-ts";
-import {useParams} from "next/navigation";
 
 type CardFormProps = {
     listId: string,
@@ -18,7 +17,6 @@ type CardFormProps = {
 }
 
 const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({listId, isEditing, enableEditing, disableEditing, boardId}: CardFormProps,ref) => {
-    const params = useParams();
     const formRef = useRef<ElementRef<"form">>(null);
 
     const {execute, fieldErrors} = useAction(createCard, {
@@ -26,6 +24,9 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({listId, isEdit
         toastLoadingMessage: "Creating card...",
         toastSuccessMessage: "Card created successfully!",
         toastErrorMessage: "Failed to create card: ",
+        onSuccess: () => {
+            formRef.current?.reset();
+        }
     });
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -36,7 +37,6 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({listId, isEdit
         const title = formData.get("title") as string;
         const listId = formData.get("listId") as string;
         const boardId = formData.get("boardId") as string;
-        console.log({title, listId, boardId})
 
         await execute({title, listId, boardId});
     }
@@ -55,6 +55,7 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(({listId, isEdit
         <form
             className={"m-1 py-0.5 px-1 space-y-4"}
             action={onSubmit}
+            ref={formRef}
         >
             <FormTextarea
                 id={"title"}
