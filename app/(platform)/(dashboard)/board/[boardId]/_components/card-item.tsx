@@ -7,6 +7,7 @@ type CardItemProps = {
 }
 
 export default function CardItem({card, index}: CardItemProps) {
+
     return (
         <Draggable draggableId={card.id} index={index}>
             {(provided) => (
