@@ -24,15 +24,25 @@ type ListContainerProps = {
 function reorder<T>(list: T[], startIndex: number, endIndex: number): T[] {
     // create a copy of the list
     const result = Array.from(list);
+
     // remove the item from the list
     const [removed] = result.splice(startIndex, 1);
+
     // insert the item at the new position
     result.splice(endIndex, 0, removed);
+
     // return the new list with the item moved
     return result;
 }
 
+/**
+ * Container for the lists of a board.
+ * @param boardId
+ * @param lists
+ * @constructor
+ */
 export default function ListContainer({ boardId, lists }: ListContainerProps) {
+
     // for optimistic updates purposes
     const [orderedLists, setOrderedLists] = useState(lists);
 
@@ -95,12 +105,16 @@ export default function ListContainer({ boardId, lists }: ListContainerProps) {
 
             // moving a card in the same list
             if(source.droppableId === destination.droppableId) {
+                // update the order of the cards
                 const newOrderedCards = reorder(sourceList.Cards, source.index, destination.index).map((card, index) => ({ ...card, order: index + 1 }));
 
+                // insert updated order of cards in the source list
                 sourceList.Cards = newOrderedCards;
 
+                // update the order of the lists after the card has been moved
                 setOrderedLists(newOrderedLists);
 
+                // update the order of the cards in the database
                 await executeReorderCard({
                     boardId,
                     items: newOrderedCards
@@ -111,6 +125,7 @@ export default function ListContainer({ boardId, lists }: ListContainerProps) {
 
             // moving a card to another list
             if(source.droppableId !== destination.droppableId) {
+
                 // remove the card from the source list
                 const [removed] = sourceList.Cards.splice(source.index, 1);
 
@@ -135,9 +150,7 @@ export default function ListContainer({ boardId, lists }: ListContainerProps) {
 
                 return;
             }
-
         }
-
     }
 
 
