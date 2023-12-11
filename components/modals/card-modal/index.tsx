@@ -2,10 +2,13 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import {Dialog, DialogContent} from "@/components/ui/dialog";
-import useCardModel from "@/hooks/use-card-model";
 import {CardWithList} from "@/types";
 import {fetcher} from "@/lib/fetcher";
+import useCardModel from "@/hooks/use-card-model";
+import {Dialog, DialogContent} from "@/components/ui/dialog";
+
+
+import {Header} from "./header";
 
 export default function CardModal() {
     const id = useCardModel(state => state.id);
@@ -24,7 +27,7 @@ export default function CardModal() {
             onOpenChange={onClose}
         >
             <DialogContent>
-                {cardData?.title}
+                {cardData ? <Header data={cardData}/> : <Header.Skeleton />}
             </DialogContent>
         </Dialog>
     );

@@ -1,14 +1,15 @@
+
 import {HelpCircle, User2} from "lucide-react";
 import {auth} from "@clerk/nextjs";
 import {redirect} from "next/navigation";
 import Link from "next/link";
 
 
-
 import {db} from "@/lib/db";
 import Hint from "@/components/hint";
 import FormPopover from "@/components/form/form-popover";
 import {Skeleton} from "@/components/ui/skeleton";
+import {Board} from "@prisma/client";
 
 export default async function BoardList() {
 
@@ -16,14 +17,20 @@ export default async function BoardList() {
 
     if(!orgId) return redirect("/select-org");
 
-    const boards = await db.board.findMany({
-        where: {
-            orgId,
-        },
-        orderBy: {
-            createdAt: "desc"
-        }
-    });
+    let boards: Board[] = [];
+
+    try {
+         boards = await db.board.findMany({
+            where: {
+                orgId,
+            },
+            orderBy: {
+                createdAt: "desc"
+            }
+        });
+    } catch (e) {
+        console.error(e);
+    }
 
     return (
         <div className={"space-y-4"}>
