@@ -54,4 +54,32 @@ model Card {
   @@index([listId])
 }
 
+enum Action {
+  CREATE
+  UPDATE
+  DELETE
+  REORDER
+  COPY
+}
+
+enum EntityType {
+  BOARD
+  LIST
+  CARD
+}
+
+model AuditLog {
+  id         String     @id @default(cuid())
+  userId     String
+  userImage  String     @db.Text
+  userName   String     @db.Text
+  orgId      String
+  action     Action
+  entityId   String
+  entityType EntityType
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // end trello-clone schema
