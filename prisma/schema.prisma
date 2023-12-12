@@ -69,17 +69,17 @@ enum EntityType {
 }
 
 model AuditLog {
-  id         String     @id @default(cuid())
-  userId     String
-  userImage  String     @db.Text
-  userName   String     @db.Text
-  orgId      String
-  action     Action
-  entityId   String
-  entityType EntityType
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String     @id @default(cuid())
+  userId      String
+  userImage   String     @db.Text
+  userName    String     @db.Text
+  orgId       String
+  action      Action
+  entityId    String
+  entityType  EntityType
+  entityTitle String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 // end trello-clone schema
