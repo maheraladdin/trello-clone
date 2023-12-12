@@ -10,6 +10,7 @@ import {Dialog, DialogContent} from "@/components/ui/dialog";
 
 import {Header} from "./header";
 import {Description} from "./description";
+import {Actions} from "@/components/modals/card-modal/actions";
 
 export default function CardModal() {
     const id = useCardModel(state => state.id);
@@ -35,6 +36,7 @@ export default function CardModal() {
                             {cardData ? <Description data={cardData}/> : <Description.Skeleton />}
                         </div>
                     </div>
+                    {cardData ? <Actions data={cardData}/> : <Actions.Skeleton />}
                 </div>
             </DialogContent>
         </Dialog>
