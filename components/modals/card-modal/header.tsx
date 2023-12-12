@@ -5,10 +5,11 @@ import {useState, useRef, ElementRef} from "react";
 import {useParams} from "next/navigation";
 import {useQueryClient} from "@tanstack/react-query";
 
-
+import useAction from "@/hooks/use-action";
 import {CardWithList} from "@/types";
 import {Skeleton} from "@/components/ui/skeleton";
 import FormInput from "@/components/form/form-input";
+import {updateCard} from "@/actions/card-actions";
 
 type HeaderProps = {
     data: CardWithList;
@@ -18,6 +19,20 @@ export const Header = ({data}: HeaderProps) => {
 
     const queryClient = useQueryClient();
     const params = useParams();
+
+    const {execute} = useAction(updateCard, {
+        enableToast: true,
+        toastLoadingMessage: "Updating card...",
+        toastSuccessMessage: "Card updated!",
+        toastErrorMessage: "Failed to update card.",
+        onSuccess: async (data) => {
+            await queryClient.invalidateQueries({
+                queryKey: ["card", data.id],
+            })
+            setTitle(data.title);
+        },
+    })
+
     const [title, setTitle] = useState(data.title);
 
     const inputRef = useRef<ElementRef<"input">>(null);
@@ -26,8 +41,16 @@ export const Header = ({data}: HeaderProps) => {
         inputRef.current?.form?.requestSubmit();
     }
 
-    const onSubmit = (formData: FormData) => {
-        console.log(formData.get("title"));
+    const onSubmit = async (formData: FormData) => {
+        const title = formData.get("title") as string;
+        const boardId = params.boardId as string;
+        const id = data.id as string;
+
+        if(!title || title === data.title) return;
+
+        console.log(title, boardId, id);
+
+        await execute({id, title, boardId});
     }
 
     console.log(data);
