@@ -1,11 +1,14 @@
 "use server";
 
-import {InputType, OutputType} from "./types";
 import {auth} from "@clerk/nextjs";
-import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
-import createSafeAction from "@/lib/create-safe-action";
+import {Action, EntityType} from "@prisma/client";
+
+import {db} from "@/lib/db";
 import {CreateCardSchema} from "./schema";
+import {type InputType, type OutputType} from "./types";
+import createAuditLog from "@/lib/create-audit-log";
+import createSafeAction from "@/lib/create-safe-action";
 
 const handler = async (data: InputType): Promise<OutputType> => {
     const { userId, orgId } = auth();
@@ -55,6 +58,13 @@ const handler = async (data: InputType): Promise<OutputType> => {
                 listId,
                 order,
             }
+        });
+
+        await createAuditLog({
+            entityId: card.id,
+            entityTitle: card.title,
+            entityType: EntityType.CARD,
+            action: Action.CREATE
         });
 
     } catch (error: any) {
