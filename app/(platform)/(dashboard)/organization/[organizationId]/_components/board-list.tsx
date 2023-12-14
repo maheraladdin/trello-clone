@@ -1,15 +1,17 @@
 
-import {HelpCircle, User2} from "lucide-react";
+import Link from "next/link";
 import {auth} from "@clerk/nextjs";
 import {redirect} from "next/navigation";
-import Link from "next/link";
+import {HelpCircle, User2} from "lucide-react";
 
 
 import {db} from "@/lib/db";
 import Hint from "@/components/hint";
-import FormPopover from "@/components/form/form-popover";
-import {Skeleton} from "@/components/ui/skeleton";
 import {Board} from "@prisma/client";
+import {Skeleton} from "@/components/ui/skeleton";
+import {MAX_FREE_BOARDS} from "@/constants/boards";
+import {getNumberOfCreatedBoards} from "@/lib/org-limit";
+import FormPopover from "@/components/form/form-popover";
 
 export default async function BoardList() {
 
@@ -31,6 +33,8 @@ export default async function BoardList() {
     } catch (e) {
         console.error(e);
     }
+
+    const numberOfCreatedBoards = await getNumberOfCreatedBoards();
 
     return (
         <div className={"space-y-4"}>
@@ -65,12 +69,11 @@ export default async function BoardList() {
                             Create a new board
                         </p>
                         <span className={"text-xs"}>
-                            5 remaining
+                            {MAX_FREE_BOARDS - numberOfCreatedBoards} remaining
                         </span>
                         <Hint
                             hint={"Free workspaces are limited to 5 boards. Upgrade workspace to create more."}
                             sideOffset={40}
-
                         >
                             <HelpCircle className={"absolute bottom-2 right-2 h-[14px] w-[14px]"} />
                         </Hint>

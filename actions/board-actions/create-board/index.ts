@@ -1,13 +1,15 @@
 "use server";
 
-import {InputType, OutputType} from "./types";
 import {auth} from "@clerk/nextjs";
-import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
-import createSafeAction from "@/lib/create-safe-action";
-import {CreateBoardSchema} from "@/actions/board-actions/create-board/schema";
-import createAuditLog from "@/lib/create-audit-log";
+
+import {db} from "@/lib/db";
+import {InputType, OutputType} from "./types";
 import {Action, EntityType} from "@prisma/client";
+import createAuditLog from "@/lib/create-audit-log";
+import createSafeAction from "@/lib/create-safe-action";
+import {incrementNumberOfCreatedBoards, hasAvailableBoards} from "@/lib/org-limit";
+import {CreateBoardSchema} from "@/actions/board-actions/create-board/schema";
 
 const handler = async (data: InputType): Promise<OutputType> => {
     const { userId, orgId } = auth();
@@ -15,6 +17,14 @@ const handler = async (data: InputType): Promise<OutputType> => {
     if(!userId || !orgId) {
         return {
             error: "Not authenticated",
+        }
+    }
+
+    const canCreateBoard = await hasAvailableBoards();
+
+    if(!canCreateBoard) {
+        return {
+            error: "You have reached the limit of free boards for your organization. Please upgrade to a paid plan to create more boards.",
         }
     }
 
@@ -52,6 +62,8 @@ const handler = async (data: InputType): Promise<OutputType> => {
                 imageUserName,
             }
         });
+
+        await incrementNumberOfCreatedBoards();
 
         await createAuditLog({
             entityId: board.id,

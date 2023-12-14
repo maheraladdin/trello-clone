@@ -9,6 +9,7 @@ import {DeleteBoardSchema} from "@/actions/board-actions/delete-board/schema";
 import {redirect} from "next/navigation";
 import createAuditLog from "@/lib/create-audit-log";
 import {Action, EntityType} from "@prisma/client";
+import {decrementNumberOfCreatedBoards} from "@/lib/org-limit";
 
 
 const handler = async (data: InputType): Promise<OutputType> => {
@@ -31,6 +32,8 @@ const handler = async (data: InputType): Promise<OutputType> => {
                 orgId,          // Only allow updating boards that belong to the current user's org
             }
         });
+
+        await decrementNumberOfCreatedBoards();
 
         await createAuditLog({
             entityId: board.id,
