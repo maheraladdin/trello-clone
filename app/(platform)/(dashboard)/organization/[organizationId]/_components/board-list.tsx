@@ -12,6 +12,7 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {MAX_FREE_BOARDS} from "@/constants/boards";
 import {getNumberOfCreatedBoards} from "@/lib/org-limit";
 import FormPopover from "@/components/form/form-popover";
+import {checkSubscription} from "@/lib/subscription";
 
 export default async function BoardList() {
 
@@ -35,6 +36,7 @@ export default async function BoardList() {
     }
 
     const numberOfCreatedBoards = await getNumberOfCreatedBoards();
+    const isPro = await checkSubscription();
 
     return (
         <div className={"space-y-4"}>
@@ -69,7 +71,7 @@ export default async function BoardList() {
                             Create a new board
                         </p>
                         <span className={"text-xs"}>
-                            {MAX_FREE_BOARDS - numberOfCreatedBoards} remaining
+                            {isPro ? "Unlimited" : `${MAX_FREE_BOARDS - numberOfCreatedBoards} remaining`}
                         </span>
                         <Hint
                             hint={"Free workspaces are limited to 5 boards. Upgrade workspace to create more."}

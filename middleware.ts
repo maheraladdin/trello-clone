@@ -5,7 +5,7 @@ import {NextResponse} from "next/server";
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
-    publicRoutes: ["/"],
+    publicRoutes: ["/","/api/v1/webhook"],
     afterAuth(auth, req ) {
 
         // If the user is logged in and is trying to access a public route, redirect them to the org selection page

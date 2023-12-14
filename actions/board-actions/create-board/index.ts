@@ -10,6 +10,7 @@ import createAuditLog from "@/lib/create-audit-log";
 import createSafeAction from "@/lib/create-safe-action";
 import {incrementNumberOfCreatedBoards, hasAvailableBoards} from "@/lib/org-limit";
 import {CreateBoardSchema} from "@/actions/board-actions/create-board/schema";
+import {checkSubscription} from "@/lib/subscription";
 
 const handler = async (data: InputType): Promise<OutputType> => {
     const { userId, orgId } = auth();
@@ -21,8 +22,9 @@ const handler = async (data: InputType): Promise<OutputType> => {
     }
 
     const canCreateBoard = await hasAvailableBoards();
+    const isPro = await checkSubscription();
 
-    if(!canCreateBoard) {
+    if(!canCreateBoard && !isPro) {
         return {
             error: "You have reached the limit of free boards for your organization. Please upgrade to a paid plan to create more boards.",
         }
@@ -63,7 +65,7 @@ const handler = async (data: InputType): Promise<OutputType> => {
             }
         });
 
-        await incrementNumberOfCreatedBoards();
+        !isPro && await incrementNumberOfCreatedBoards();
 
         await createAuditLog({
             entityId: board.id,

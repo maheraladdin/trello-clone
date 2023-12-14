@@ -12,9 +12,9 @@ export default function ProModel() {
 
     const {execute, isLoading} = useAction(stripeRedirect, {
         enableToast: true,
-        toastLoadingMessage: "Redirecting to Stripe...",
-        toastSuccessMessage: "Redirecting to Stripe...",
-        toastErrorMessage: "Failed to redirect to Stripe.",
+        toastLoadingMessage: "Redirecting to Checkout Session...",
+        toastSuccessMessage: "Redirecting to Checkout Session...",
+        toastErrorMessage: "Failed to redirect to Checkout Session: ",
         onSuccess: (url) => {
             window.location.href = url;
         },
