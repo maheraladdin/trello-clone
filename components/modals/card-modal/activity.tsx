@@ -23,7 +23,7 @@ export function Activity({items}: ActivityProps) {
     );
 }
 
-Activity.Skeleton = () => {
+Activity.Skeleton = function ActivitySkeleton() {
     return (
         <div className={"flex items-start gap-x-3 w-full"}>
             <Skeleton className={"h-6 w-6 bg-neutral-200"} />
