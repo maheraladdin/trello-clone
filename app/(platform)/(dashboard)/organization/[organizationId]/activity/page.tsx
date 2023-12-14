@@ -1,8 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import Info from "../_components/info";
 import {Suspense} from "react";
-import ActivityList
-    from "@/app/(platform)/(dashboard)/organization/[organizationId]/activity/_components/activity-list";
+import ActivityList from "./_components/activity-list";
 
 export default function ActivityPage() {
 
