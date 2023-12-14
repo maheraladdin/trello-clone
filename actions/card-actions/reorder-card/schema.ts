@@ -30,6 +30,6 @@ export const ReorderCardSchema = z.object({
             required_error: "Item updatedAt is required",
             invalid_type_error: "Item updatedAt must be a date",
         }),
-    }))
+    })),
 });
 

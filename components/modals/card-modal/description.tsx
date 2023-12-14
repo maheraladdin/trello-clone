@@ -58,6 +58,9 @@ export function Description({data}: DescriptionProps) {
             await queryClient.invalidateQueries({
                 queryKey: ["card", data.id],
             });
+            await queryClient.invalidateQueries({
+                queryKey: ["card-logs", data.id],
+            });
             disableEditing();
         }
     })

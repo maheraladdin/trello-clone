@@ -6,6 +6,8 @@ import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
 import createSafeAction from "@/lib/create-safe-action";
 import {UpdateListSchema} from "./schema";
+import createAuditLog from "@/lib/create-audit-log";
+import {Action, EntityType} from "@prisma/client";
 
 
 const handler = async (data: InputType): Promise<OutputType> => {
@@ -34,6 +36,14 @@ const handler = async (data: InputType): Promise<OutputType> => {
                 title,
             }
         });
+
+        await createAuditLog({
+            entityId: list.id,
+            entityTitle: list.title,
+            entityType: EntityType.LIST,
+            action: Action.UPDATE,
+        });
+
     } catch (error: any) {
         return {
             error: "Failed to update board: " + error.message,

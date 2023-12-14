@@ -7,6 +7,8 @@ import {InputType, OutputType} from "./types";
 import {db} from "@/lib/db";
 import createSafeAction from "@/lib/create-safe-action";
 import {CopyListSchema} from "./schema";
+import createAuditLog from "@/lib/create-audit-log";
+import {Action, EntityType} from "@prisma/client";
 
 
 const handler = async (data: InputType): Promise<OutputType> => {
@@ -67,7 +69,14 @@ const handler = async (data: InputType): Promise<OutputType> => {
             include: {
                 Cards: true,
             }
-        })
+        });
+
+        await createAuditLog({
+            entityId: list.id,
+            entityTitle: list.title,
+            entityType: EntityType.LIST,
+            action: Action.COPY,
+        });
 
     } catch (error: any) {
         return {

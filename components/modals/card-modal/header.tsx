@@ -28,7 +28,10 @@ export const Header = ({data}: HeaderProps) => {
         onSuccess: async (data) => {
             await queryClient.invalidateQueries({
                 queryKey: ["card", data.id],
-            })
+            });
+            await queryClient.invalidateQueries({
+                queryKey: ["card-logs", data.id],
+            });
             setTitle(data.title);
         },
     })

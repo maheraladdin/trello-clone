@@ -1,10 +1,12 @@
 "use server";
 
-import {revalidatePath} from "next/cache";
 import {auth} from "@clerk/nextjs";
+import {revalidatePath} from "next/cache";
+import createAuditLog from "@/lib/create-audit-log";
 
 import {InputType, OutputType} from "./types";
 import {db} from "@/lib/db";
+import {Action, EntityType} from "@prisma/client";
 import createSafeAction from "@/lib/create-safe-action";
 import {DeleteCardSchema} from "./schema";
 
@@ -37,6 +39,13 @@ const handler = async (data: InputType): Promise<OutputType> => {
                     },
                 },
             },
+        });
+
+        await createAuditLog({
+            action: Action.DELETE,
+            entityId: card.id,
+            entityTitle: card.title,
+            entityType: EntityType.CARD,
         });
 
     } catch (error: any) {

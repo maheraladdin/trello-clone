@@ -6,6 +6,8 @@ import {db} from "@/lib/db";
 import {revalidatePath} from "next/cache";
 import createSafeAction from "@/lib/create-safe-action";
 import {CreateBoardSchema} from "@/actions/board-actions/create-board/schema";
+import createAuditLog from "@/lib/create-audit-log";
+import {Action, EntityType} from "@prisma/client";
 
 const handler = async (data: InputType): Promise<OutputType> => {
     const { userId, orgId } = auth();
@@ -50,6 +52,14 @@ const handler = async (data: InputType): Promise<OutputType> => {
                 imageUserName,
             }
         });
+
+        await createAuditLog({
+            entityId: board.id,
+            entityTitle: board.title,
+            entityType: EntityType.BOARD,
+            action: Action.CREATE,
+        });
+
     } catch (error: any) {
         return {
             error: "Failed to create board: " + error.message,

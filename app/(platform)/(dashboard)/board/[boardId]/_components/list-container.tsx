@@ -117,7 +117,7 @@ export default function ListContainer({ boardId, lists }: ListContainerProps) {
                 // update the order of the cards in the database
                 await executeReorderCard({
                     boardId,
-                    items: newOrderedCards
+                    items: newOrderedCards,
                 });
 
                 return;
