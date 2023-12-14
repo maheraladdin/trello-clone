@@ -2,21 +2,21 @@
 
 import {XIcon} from "lucide-react";
 import {ElementRef, useRef} from "react";
+import { useRouter } from "next/navigation";
 
-
+import useAction from "@/hooks/use-action";
+import {createBoard} from "@/actions/board-actions";
 import {
     Popover,
     PopoverTrigger,
-    PopoverContent, PopoverClose,
+    PopoverContent,
+    PopoverClose,
 } from "@/components/ui/popover";
-import useAction from "@/hooks/use-action";
-import {createBoard} from "@/actions/board-actions";
-
+import {Button} from "@/components/ui/button";
+import useProModel from "@/hooks/use-pro-model";
 import FormInput from "@/components/form/form-input";
 import FormButton from "@/components/form/form-button";
-import {Button} from "@/components/ui/button";
 import FormPicker from "@/components/form/form-picker";
-import { useRouter } from "next/navigation";
 
 type FormPopoverProps = {
     children: React.ReactNode;
@@ -31,6 +31,7 @@ export default function FormPopover({
     align,
     sideOffset = 0,
 }: FormPopoverProps) {
+    const proModel = useProModel();
     const router = useRouter();
     const closeRef = useRef<ElementRef<"button">>(null);
 
@@ -42,6 +43,9 @@ export default function FormPopover({
         onSuccess: (data) => {
             closeRef.current?.click();
             router.push(`/board/${data.id}`);
+        },
+        onError: (error) => {
+            if(error.includes("the limit of free")) proModel.onOpen();
         }
     });
 
