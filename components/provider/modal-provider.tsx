@@ -1,23 +1,16 @@
 "use client";
 
-import {useEffect, useState} from "react";
-
 import ProModel from "@/components/modals/pro-model";
 import CardModal from "@/components/modals/card-modal";
+import {useSsr} from "usehooks-ts";
 
 export default function ModalProvider() {
-    const [isMounted, setIsMounted] = useState(false);
+    const {isBrowser} = useSsr();
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    if(!isMounted) return null;
-
-    return (
+    return isBrowser ? (
         <>
             <CardModal />
             <ProModel />
         </>
-    )
+    ) : null;
 }

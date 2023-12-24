@@ -3,7 +3,7 @@ import {OrganizationSwitcher, UserButton} from "@clerk/nextjs";
 
 import Logo from "@/components/logo";
 import {Button} from "@/components/ui/button";
-import MobileSidebar from "@/app/(platform)/(dashboard)/_components/MobileSidebar";
+import MobileSidebar from "@/app/(platform)/(dashboard)/_components/mobile-sidebar";
 import FormPopover from "@/components/form/form-popover";
 
 export default function Navbar() {

@@ -1,35 +1,27 @@
 "use client";
 import {usePathname} from "next/navigation";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
 import useMobileSidebar from "@/hooks/use-mobile-sidebar";
 import {Button} from "@/components/ui/button";
 import {Menu} from "lucide-react";
 import {Sheet, SheetContent} from "@/components/ui/sheet";
 import {Sidebar} from "@/app/(platform)/(dashboard)/_components";
+import {useSsr} from "usehooks-ts";
 
 export default function MobileSidebar() {
     const pathname = usePathname();
-    const [isMounted, setIsMounted] = useState(false);
+    const {isBrowser} = useSsr();
 
     const onOpen = useMobileSidebar(state => state.onOpen);
     const onClose = useMobileSidebar(state => state.onClose);
     const isOpen = useMobileSidebar(state => state.isOpen);
 
-    // do not render on server side to avoid mismatched state
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
     useEffect(() => {
         onClose();
     }, [pathname, onClose]);
 
-    if(!isMounted) {
-        return null;
-    }
-
-    return (
+    return isBrowser ? (
         <>
             <Button
                 onClick={onOpen}
@@ -50,5 +42,5 @@ export default function MobileSidebar() {
                 </SheetContent>
             </Sheet>
         </>
-    );
+    ): null;
 }
