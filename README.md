@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a simple Trello clone that allows you to create, edit, and delete boards, lists, and tasks. It also allows you to move tasks between columns.
+This is a simple Trello clone that allows you to create, edit, and delete boards, lists, and tasks. It also allows you to move tasks between columns and more...
 
 ## ERD
 
