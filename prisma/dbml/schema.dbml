@@ -1,0 +1,89 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Board {
+  id String [pk]
+  orgId String [not null]
+  title String [not null]
+  imageId String [not null]
+  imageThumbUrl String [not null]
+  imageFullUrl String [not null]
+  imageUserName String [not null]
+  imageLinkHtml String [not null]
+  imageAltDescription String [not null]
+  Lists List [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table List {
+  id String [pk]
+  boardId String [not null]
+  title String [not null]
+  order Int [not null]
+  board Board [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  Cards Card [not null]
+}
+
+Table Card {
+  id String [pk]
+  listId String [not null]
+  title String [not null]
+  order Int [not null]
+  description String
+  list List [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table AuditLog {
+  id String [pk]
+  userId String [not null]
+  userImage String [not null]
+  userName String [not null]
+  orgId String [not null]
+  action Action [not null]
+  entityId String [not null]
+  entityType EntityType [not null]
+  entityTitle String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table OrgLimit {
+  id String [pk]
+  orgId String [unique, not null]
+  count Int [not null, default: 0]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table OrgSubscription {
+  id String [pk]
+  orgId String [unique, not null]
+  stripeCustomerId String [unique]
+  stripeSubscriptionId String [unique]
+  stripePriceId String
+  stripeCurrentPeriodEnd DateTime
+}
+
+Enum Action {
+  CREATE
+  UPDATE
+  DELETE
+  REORDER
+  COPY
+}
+
+Enum EntityType {
+  BOARD
+  LIST
+  CARD
+}
+
+Ref: List.boardId > Board.id [delete: Cascade]
+
+Ref: Card.listId > List.id [delete: Cascade]

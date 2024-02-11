@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Trello Clone
 
-## Getting Started
+## Description
 
-First, run the development server:
+This is a simple Trello clone that allows you to create, edit, and delete boards, lists, and tasks. It also allows you to move tasks between columns.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ERD
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[Link to the ERD for the Trello clone.](https://dbdiagram.io/d/Trello-clone-65c947e1ac844320aee94704)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![Trello Schema ERD](./public/Trello_Schema_ERD.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Pages
 
-## Learn More
+- Marketing Page
+<hr />
 
-To learn more about Next.js, take a look at the following resources:
+![Marketing Page](public/screenshots/1.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Sign in Page
+<hr />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![Sign in Page](public/screenshots/2.png)
 
-## Deploy on Vercel
+- Sign up Page
+<hr />
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Sign up Page](public/screenshots/3.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Select organization Page
+<hr />
+
+![select organization Page](public/screenshots/9.png)
+
+- Dashboard Page
+<hr />
+
+![Dashboard Page](public/screenshots/4.png)
+
+- Board Page
+<hr />
+
+![board Page](public/screenshots/5.png)
+
+- Activity log Page
+<hr />
+
+![activity log Page](public/screenshots/6.png)
+
+- Billing Page
+<hr />
+
+![billing Page](public/screenshots/7.png)
+
+- Settings Page
+<hr />
+
+![settings Page](public/screenshots/8.png)
