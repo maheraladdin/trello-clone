@@ -16,7 +16,7 @@ return (
             </Avatar>
             <div className={"flex flex-col space-y-0.5"}>
                 <p className={"text-sm text-muted-foreground"}>
-                    <span className={"font-semibold lowercase text-neutral-700"}>
+                    <span className={"font-semibold lowercase text-neutral-700 dark:text-neutral-300"}>
                         {item.userName}
                     </span> {generateLogMessage(item)}
                 </p>

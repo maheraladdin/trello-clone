@@ -17,7 +17,7 @@ export default function Logo() {
                     <path d="M36.6705 42.8416C42.8109 38.8239 46.8676 31.8858 46.8676 24C46.8676 16.1144 42.8109 9.17614 36.6705 5.15854C30.5904 9.17614 26.5735 16.1144 26.5735 24C26.5735 31.8858 30.5904 38.8239 36.6705 42.8416Z" className="ccompli2" fill="#5D2C02"></path>
                 </svg>
                 <p className={cn(
-                    "text-lg text-neutral-700 pb-0.5",
+                    "text-lg text-neutral-700 dark:text-neutral-300 pb-0.5",
                     headingFont.className,
                 )}>
                     Taskify

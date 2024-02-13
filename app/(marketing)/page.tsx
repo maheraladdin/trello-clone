@@ -34,7 +34,7 @@ export default function MarketingPage() {
               <span className={"tracking-widest"}>No 1 task management</span>
           </div>
           {/* Title */}
-          <h1 className={"text-3xl md:text-6xl font-bold text-center text-neutral-800 mb-6"}>
+          <h1 className={"text-3xl md:text-6xl font-bold text-center text-neutral-800 dark:text-neutral-300 mb-6"}>
               Taskify helps team move
           </h1>
           {/* Subtitle */}
@@ -48,7 +48,7 @@ export default function MarketingPage() {
       )}>
           Collaborate, manage projects, and reach new productivity peaks. From high rises to the home office, the way your team works is unique — accomplish it all with Taskify.
       </p>
-      <Button className={"mt-8"} size={"lg"} asChild>
+      <Button className={"mt-8 dark:bg-black dark:text-white"} size={"lg"} asChild>
         <Link href={"/sign-up"}>
           Get Taskify for free
         </Link>

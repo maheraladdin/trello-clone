@@ -61,7 +61,7 @@ export default function ListForm() {
         <ListWrapper>
             <form
                 ref={formRef}
-                className={"w-full rounded-md bg-white p-3 space-y-4 shadow-md"}
+                className={"w-full rounded-md bg-white dark:bg-slate-800 p-3 space-y-4 shadow-md"}
                 action={onSubmit}
             >
                 <FormInput
@@ -69,7 +69,7 @@ export default function ListForm() {
                     errors={fieldErrors}
                     id={"title"}
                     placeholder={"Enter list title..."}
-                    className={"text-sm px-2 py-1 h-7 font-medium border-transparent hover:border-input focus:border-input transition"}
+                    className={"text-sm px-2 py-1 h-7 dark:bg-slate-900 font-medium border-transparent hover:border-input focus:border-input transition"}
                 />
                 <input
                     type="hidden"
@@ -98,7 +98,7 @@ export default function ListForm() {
         <ListWrapper>
             <button
                 onClick={enableEditing}
-                className={"w-full rounded-md bg-white/80 hover:bg-white/50 transition p-3 flex items-center font-medium text-sm"}
+                className={"w-full rounded-md bg-white/80 dark:bg-black/50 hover:bg-white/50 dark:hover:bg-black/80 transition p-3 flex items-center font-medium text-sm"}
             >
                 <Plus className={"h-4 w-4 mr-2"} />
                 Add a list

@@ -55,7 +55,7 @@ export const Actions = ({data}: ActionsProps) => {
             </p>
             <Button
                 variant={"gray"}
-                className={"w-full justify-start "}
+                className={"w-full justify-start dark:bg-slate-800 dark:hover:bg-slate-700"}
                 size={"inline"}
                 onClick={onCopy}
                 disabled={isLoadingCopy}
@@ -65,7 +65,7 @@ export const Actions = ({data}: ActionsProps) => {
             </Button>
             <Button
                 variant={"gray"}
-                className={"w-full justify-start "}
+                className={"w-full justify-start bg-rose-800 hover:bg-rose-700"}
                 size={"inline"}
                 onClick={onDelete}
                 disabled={isLoadingDelete}

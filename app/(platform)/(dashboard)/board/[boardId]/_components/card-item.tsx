@@ -19,7 +19,7 @@ export default function CardItem({card, index}: CardItemProps) {
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                     onClick={() => onOpen(card.id)}
-                    className={"truncate border-2 border-transparent hover:border-black py-2 px-3 text-sm bg-white rounded-md shadow-sm"}
+                    className={"truncate border-2 border-transparent hover:border-black dark:hover:border-slate-700 py-2 px-3 text-sm bg-white dark:bg-slate-900 rounded-md shadow-sm"}
                 >
                     {card.title}
                 </div>

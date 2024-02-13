@@ -5,10 +5,11 @@ import Logo from "@/components/logo";
 import {Button} from "@/components/ui/button";
 import MobileSidebar from "@/app/(platform)/(dashboard)/_components/mobile-sidebar";
 import FormPopover from "@/components/form/form-popover";
+import {ModeToggle} from "@/components/theme-toggle";
 
 export default function Navbar() {
     return (
-        <nav className={"fixed z-50 px-4 top-0 w-full h-14 border-b shadow-sm bg-white flex items-center"}>
+        <nav className={"fixed z-50 px-4 top-0 w-full h-14 border-b shadow-sm bg-white dark:bg-slate-900 flex items-center"}>
             <MobileSidebar />
             <div className={"flex items-center gap-x-4"}>
                 <div className={"hidden md:flex"}>
@@ -23,6 +24,7 @@ export default function Navbar() {
                         Create
                     </Button>
                 </FormPopover>
+                <ModeToggle />
                 <FormPopover
                     side={"bottom"}
                     align={"start"}

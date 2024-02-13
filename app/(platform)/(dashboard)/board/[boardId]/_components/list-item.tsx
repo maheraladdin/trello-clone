@@ -33,7 +33,7 @@ export default function ListItem({ list, index }: { list: ListWithCards, index: 
                 >
                     <div
                         {...provided.dragHandleProps}
-                        className={"w-full rounded-md bg-[#F1F2F4] shadow-md pb-2"}
+                        className={"w-full rounded-md bg-[#F1F2F4] dark:bg-slate-800 shadow-md pb-2"}
                     >
                         <ListHeader
                             onAddCard={enableEditing}
