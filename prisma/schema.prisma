@@ -7,9 +7,10 @@ generator dbml {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 // start trello-clone schema
@@ -19,11 +20,11 @@ model Board {
   orgId               String
   title               String
   imageId             String
-  imageThumbUrl       String @db.Text
-  imageFullUrl        String @db.Text
-  imageUserName       String @db.Text
-  imageLinkHtml       String @db.Text
-  imageAltDescription String @db.Text
+  imageThumbUrl       String
+  imageFullUrl        String
+  imageUserName       String
+  imageLinkHtml       String
+  imageAltDescription String
   Lists               List[]
 
   createdAt DateTime @default(now())
@@ -49,7 +50,7 @@ model Card {
   listId      String
   title       String
   order       Int
-  description String? @db.Text
+  description String?
   list        List    @relation(fields: [listId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
@@ -75,8 +76,8 @@ enum EntityType {
 model AuditLog {
   id          String     @id @default(cuid())
   userId      String
-  userImage   String     @db.Text
-  userName    String     @db.Text
+  userImage   String
+  userName    String
   orgId       String
   action      Action
   entityId    String
